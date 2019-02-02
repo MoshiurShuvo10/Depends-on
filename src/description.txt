@@ -1,0 +1,31 @@
+if, we dont specify  "depends-on" in beans,
+then 
+<bean id="jdk" class="beans.JDK" />
+<bean id="jre" class="beans.JRE" />
+<bean id="jvm" class="beans.JVM" />
+
+output:                                  JDK created
+                                                   JRE created
+                                                   JVM created
+                                                   
+                                      **   it'll follow  the order
+As we know that,
+												       
+												       most inner part is JVM
+												       JVM+library classes => JRE
+												       JRE+development tools => JDK
+												       
+so, first, jvm needs to be created. then jre and then jdk. 
+so, jdk has a dependency of jre and jre has a dependency of jvm
+
+in xml, we need to declare like this:
+												<bean id="jre" class="beans.JRE" depends-on="jvm" />
+												<bean id="jdk" class="beans.JDK" depends-on="jre"/>                                           
+                                                <bean id="jvm" class="beans.JVM" />
+           
+           
+           output:                        JVM created
+                                                   JRE created
+                                                   JDK created 
+                                       ** it'll not follow the order. it'll create objects as per dependency            
+                                                                             
